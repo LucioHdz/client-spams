@@ -2,8 +2,8 @@
 function App() {
 
   return (
-    <div className="App">
-      
+    <div className="container-sm bg-dark">
+      <Nav></Nav>
     </div>
   )
 }
