@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-const URI = 'http://localhost:5000/'
+const URI = 'https://flask-api-origaska.herokuapp.com/'
 const Test = () => {
   const [muestra,setMuestra]= useState(0);
   const [train,setTrain]= useState(0);
@@ -8,6 +8,7 @@ const Test = () => {
   const [spam,setSpam] = useState(0)
   const [ham,setHam] = useState(0)
   const [png,setPng] = useState()
+  const [pred,setPred] = useState()
   const submit=(e)=>{
     e.preventDefault();
     if(muestra>train){
@@ -18,7 +19,7 @@ const Test = () => {
         setSpam(data.spams)
         setHam(data.hams)
         setPng("data:image/png;base64,"+data.png)
-        console.log(data.png)
+        setPred(data.gradosDePreddicion)
       })
     }
   }
@@ -41,6 +42,19 @@ const Test = () => {
       </form>
 
       <div className="d-flex flex-wrap flex-column col-7 cuerpo">
+        
+      <hr />
+        <div className="col-11 shadow-sm p-3 mb-5 bg-body rounded">
+          <h1><i class="bi bi-graph-up">Grafica</i></h1>
+
+          <p>Predicción: <b>{pred}%</b> Total: <b>{spam+ham}</b>      Spam: <b>{spam}</b>      Ham: <b>{ham}</b></p>
+          {png?<img src={png} class="img-thumbnail" alt="..." />:null}
+        </div>
+        
+        
+        
+        
+        <h1><i className="bi bi-clipboard-data-fill"> Datos</i></h1>
         <small className='text-dark-50'>**Los datos mostrados son el resultado de la prediccion, no incluye los datos de entrenamiento**</small>
         <table class="table col-11">
           <thead class="table-dark">
@@ -60,13 +74,7 @@ const Test = () => {
             })}
           </tbody>
         </table>
-        <hr />
-        <div className="col-11 shadow-sm p-3 mb-5 bg-body rounded">
-          <h1><i class="bi bi-graph-up">Grafica</i></h1>
-
-          <p>Total: <b>{spam+ham}</b>      Spam: <b>{spam}</b>      Ham: <b>{ham}</b></p>
-          {png?<img src={png} class="img-thumbnail" alt="..." />:null}
-        </div>
+        
       </div>
     </section >
   )
